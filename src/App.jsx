@@ -2,22 +2,17 @@ import { useState } from "react";
 import InputTodo from "./components/Input-todo";
 import TodoBoard from "./components/Todo-board";
 
-function App() {
+export default function App() {
   const [todos, setTodos] = useState([]);
-  const [filteredTodo, setFilteredTodo] = useState(null);
+  const [filterItem, setFilterItem] = useState(["all"]);
   function addItem(newTodoItem) {
     setTodos([...todos, newTodoItem]);
   }
 
+  // handle todo check
   function handleCheck(item) {
-    let temp;
-    if (filteredTodo) {
-      temp = filteredTodo;
-    } else {
-      temp = todos;
-    }
     setTodos(
-      temp.map((todo) => {
+      todos.map((todo) => {
         if (todo.id !== item.id) {
           return todo;
         } else {
@@ -27,23 +22,12 @@ function App() {
     );
   }
 
+  // handle Filter todo by complete
   function handleFilter(status) {
-    if (status === "all") {
-      setFilteredTodo([...todos]);
-    }
-    if (status === "complete") {
-      setFilteredTodo(
-        todos.filter((item) => {
-          return item.isChecked === true;
-        })
-      );
-    }
-    if (status === "incomplete") {
-      setFilteredTodo(
-        todos.filter((item) => {
-          return item.isChecked === false;
-        })
-      );
+    if (filterItem.includes(status)) {
+      setFilterItem([...filterItem]);
+    } else {
+      setFilterItem([status]);
     }
   }
 
@@ -57,7 +41,7 @@ function App() {
               todoList={todos}
               handleCheck={handleCheck}
               handleFilter={handleFilter}
-              filteredTodo={filteredTodo}
+              filterItem={filterItem}
             ></TodoBoard>
           </div>
         </div>
@@ -65,5 +49,3 @@ function App() {
     </>
   );
 }
-
-export default App;
