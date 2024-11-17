@@ -4,7 +4,7 @@ export default function Alert({
   handleDeleteConfirmation,
 }) {
   return (
-    <div className="p-4 text-red-900 bg-red-100 border border-red-200 rounded-md absolute top-[50%] transform translate-y-[-50%] left-0 w-full z-10">
+    <div className="p-4 text-red-900 bg-red-100 border border-red-200 rounded-md absolute top-[50%]   transform translate-y-[-50%] translate-x-[-50%] left-[50%] w-[50%] z-10">
       <div className="flex justify-between flex-wrap">
         <div className="w-0 flex-1 flex">
           <div className="mr-3 pt-1">
