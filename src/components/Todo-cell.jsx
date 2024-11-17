@@ -42,7 +42,7 @@ export default function TodoCell({
     <>
       {filteredData(todoList).map((item, index) => (
         <>
-          <div className="">
+          <div className="w-1/2   mx-auto">
             {showAlert && showDeleteDialogueItem.id === item.id && (
               <Alert
                 handleDelete={handleDelete}
