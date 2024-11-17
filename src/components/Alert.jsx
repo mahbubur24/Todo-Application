@@ -20,7 +20,7 @@ export default function Alert({
           </div>
           <div>
             <h4 className="text-md leading-6 font-medium">
-              Are you sure to delete this {item.title} ?
+              Are you sure to delete this " {item.title} " ?
             </h4>
             <p className="text-sm">
               It will be permanently deleted from your list
