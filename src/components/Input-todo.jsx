@@ -2,20 +2,20 @@ import { useState } from "react";
 
 export default function InputTodo({ addItem, isEdit, todoToEdit }) {
   const intialState = todoToEdit ?? { id: "", title: "", isChecked: false };
-  const [data, SetData] = useState(intialState);
+  const [todo, SetTodo] = useState(intialState);
   const [isBlank, setIsBlank] = useState(false);
 
   // handle todo edit
-  if (isEdit && todoToEdit && todoToEdit.id !== data.id) {
-    SetData(todoToEdit);
+  if (isEdit && todoToEdit && todoToEdit.id !== todo.id) {
+    SetTodo(todoToEdit);
   }
 
   // handle onChange of input Field
   function handleInput(e) {
     const name = e.target.name;
     const value = e.target.value;
-    SetData({
-      ...data,
+    SetTodo({
+      ...todo,
       [name]: value,
       isChecked: false,
       id: isEdit ? todoToEdit.id : crypto.randomUUID(),
@@ -26,11 +26,11 @@ export default function InputTodo({ addItem, isEdit, todoToEdit }) {
   // empty input check
   function addTodo(e) {
     e.preventDefault();
-    if (data.title.length === 0) {
+    if (todo.title.length === 0) {
       setIsBlank(true);
     } else {
-      addItem(data);
-      SetData({ id: "", title: "", isChecked: false });
+      addItem(todo);
+      SetTodo({ id: "", title: "", isChecked: false });
     }
   }
 
@@ -40,7 +40,7 @@ export default function InputTodo({ addItem, isEdit, todoToEdit }) {
         <input
           type="text"
           name="title"
-          value={data.title}
+          value={todo.title}
           className={`w-4/5 p-2 bg-zinc-100 rounded-lg outline-4 outline-offset-2 focus:outline-teal-400 caret-teal-500 `}
           onChange={handleInput}
         />
