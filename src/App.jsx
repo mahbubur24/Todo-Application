@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Alert from "./components/Alert";
 import InputTodo from "./components/Input-todo";
 import TodoBoard from "./components/Todo-board";
 
@@ -24,7 +23,7 @@ export default function App() {
     setIsEdit(false);
   }
 
-  // handle todo check
+  // handle todo mark as done
   function handleCheck(item) {
     setTodos(
       todos.map((todo) => {
@@ -65,7 +64,7 @@ export default function App() {
               todoToEdit={todoToEdit}
               isEdit={isEdit}
             ></InputTodo>
-            
+
             <TodoBoard
               todoList={todos}
               handleCheck={handleCheck}
