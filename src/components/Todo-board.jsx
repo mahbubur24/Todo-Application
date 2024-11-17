@@ -7,12 +7,16 @@ export default function TodoBoard({
   handleCheck,
   handleFilter,
   filterItem,
+  handleDelete,
+  handleEdit,
 }) {
   const [counter, setCounter] = useState(0);
   // count todo by filter
   function handleCounter(value) {
     setCounter(value);
   }
+
+
   return (
     <div className="bg-[rgba(224,242,254,0.70)] p-8 rounded-lg w-11/12 mx-auto my-4">
       <h2 className="text-center text-2xl capitalize">Todo list</h2>
@@ -24,6 +28,8 @@ export default function TodoBoard({
             todoList={todoList}
             handleCheck={handleCheck}
             filterItem={filterItem}
+            handleDelete={handleDelete}
+            handleEdit={handleEdit}
           ></TodoCell>
         </div>
       </div>

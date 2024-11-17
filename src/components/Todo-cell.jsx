@@ -1,9 +1,18 @@
+import { useState } from "react";
+import { FaRegEdit } from "react-icons/fa";
+import { IoMdTrash } from "react-icons/io";
+import Alert from "./Alert";
+
 export default function TodoCell({
   todoList,
   handleCheck,
   filterItem,
   handleCounter,
+  handleDelete,
+  handleEdit,
 }) {
+  const [showAlert, setShowAlert] = useState(false);
+  const [showDeleteDialogueItem, setShowDeleteDialogueItem] = useState(null);
   // Get Filtered Data
   function filteredData(list) {
     if (filterItem.length === 0 || filterItem[0] === "all") return list;
@@ -15,18 +24,33 @@ export default function TodoCell({
   function filteredDataCounter() {
     return filteredData(todoList).length;
   }
+  // show delete confirmation
+  function showDeleteConfirmation(flag, item = {}) {
+    flag === "show" ? setShowAlert(true) : setShowAlert(false);
+    setShowDeleteDialogueItem(item);
+  }
+
   // handle empty todo
   handleCounter(filteredDataCounter());
   if (!filteredDataCounter())
     return (
-      <h1 className="pt-10 text-center font-bold text-red-600 text-lg">
-        No todo added
+      <h1 className="pt-10 text-center font-bold text-teal-800 text-3xl">
+        No Todo Found
       </h1>
     );
   return (
     <>
       {filteredData(todoList).map((item, index) => (
         <>
+          <div className="">
+            {showAlert && showDeleteDialogueItem.id === item.id && (
+              <Alert
+                handleDelete={handleDelete}
+                handleDeleteConfirmation={showDeleteConfirmation}
+                item={item}
+              ></Alert>
+            )}
+          </div>
           <div
             key={item.id}
             className="shadow p-4 m-2 flex gap-3 cursor-pointer hover:shadow-xl relative group/item"
@@ -41,10 +65,11 @@ export default function TodoCell({
             </div>
             <div className="px-4">{index + 1}</div>
             <div className="`px-4" mx-4>
-              {item.data}
+              {item.title}
             </div>
-            <div className="flex gap-7 text-xl absolute right-10 invisible group-hover/item:visible">
-              <i className="fa-solid fa-trash"></i>
+            <div className="flex text-teal-900 gap-7 text-xl absolute right-10 invisible group-hover/item:visible">
+              <IoMdTrash onClick={() => showDeleteConfirmation("show", item)} />
+              <FaRegEdit onClick={() => handleEdit(item)} />
             </div>
           </div>
         </>
